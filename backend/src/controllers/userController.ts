@@ -6,6 +6,10 @@ class UserController {
 
     // Get authenticated user
     async getCurrentUser(req: Request, res: Response): Promise<void> {
+        if (!req.user) {
+            res.status(401).json({message: 'Unauthorized'});
+            return;
+        }
         const userId = req.user.id;
         try {
             const user = await this.userService.getUserById(userId);
