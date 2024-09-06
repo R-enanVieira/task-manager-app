@@ -1,19 +1,19 @@
 import { Router } from "express";
 const router = Router();
 
-router.get('/tasks', (req, res) => {
+router.get('/', (req, res) => {
     res.send('Get all tasks');
 });
 
-router.post('/tasks', (req, res) => {
+router.post('/', (req, res) => {
     res.send('Create a task');
 });
 
-router.patch('/tasks/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
     res.send('Update a task');
 });
 
-router.delete('/tasks/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     res.send('Delete a task');
 });
 
