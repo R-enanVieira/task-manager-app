@@ -1,20 +1,17 @@
 import { Router } from "express";
+import TaskController from "../controllers/taskController";
+import { TaskService } from "../services/taskService";
+import { authenticateToken } from "../middleware/authMiddleware";
+
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.send('Get all tasks');
-});
+const taskService = new TaskService();
+const taskController = new TaskController(taskService);
 
-router.post('/', (req, res) => {
-    res.send('Create a task');
-});
-
-router.patch('/:id', (req, res) => {
-    res.send('Update a task');
-});
-
-router.delete('/:id', (req, res) => {
-    res.send('Delete a task');
-});
+// Protected routes for tasks
+router.get('/', authenticateToken, taskController.getAllTasks.bind(taskController));
+router.post('/', authenticateToken, taskController.createTask.bind(taskController));
+router.patch('/:id', authenticateToken, taskController.updateTask.bind(taskController));
+router.delete('/:id', authenticateToken, taskController.deleteTask.bind(taskController));
 
 export default router;

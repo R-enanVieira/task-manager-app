@@ -1,17 +1,24 @@
 import { Router } from "express";
+import AuthController from "../controllers/authController"; 
+import UserController from "../controllers/userController";
+import { authenticateToken } from "../middleware/authMiddleware";
+import { AuthService } from "../services/authService";
+import { UserService } from "../services/userService";
+
 const router = Router();
 
-router.post('/register', (req, res) => {
-    res.send('Create a user');
-});
+const authService = new AuthService();
+const authController = new AuthController(authService);
 
-router.post('/login', (req, res) => {
-    res.send('Authenticate a user');
-});
+const userService = new UserService();
+const userController = new UserController(userService);
 
-router.get('/profile', (req, res) => {
-    res.send('Get a authenticated user profile');
-});
+// register and login public routes
+router.post('/register', authController.register.bind(authController));
+router.post('/login', authController.login.bind(authController));
+
+// protected route for get authenticated user profile
+router.get('/me', authenticateToken, userController.getCurrentUser.bind(userController));
 
 
 export default router;
