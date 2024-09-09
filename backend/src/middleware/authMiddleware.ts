@@ -15,7 +15,11 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
         return;
     }
 
+    console.log('token: ', token);
+    console.log('process.env.ACCESS_TOKEN_SECRET: ', process.env.ACCESS_TOKEN_SECRET);
+
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, (err, user) => {
+        console.log('err: ', err);
         if (err) { 
             res.sendStatus(403); // Forbidden
             return;

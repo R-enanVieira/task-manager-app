@@ -13,7 +13,7 @@ class UserController {
         const userId = req.user.id;
         try {
             const user = await this.userService.getUserById(userId);
-            res.json(user);
+            res.json(user.toJSON());
         } catch (error) {
             if (error instanceof Error) {
                 res.status(400).json({message: error.message});

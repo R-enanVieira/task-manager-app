@@ -7,6 +7,12 @@ class User extends Model {
     public name!: string;
     public email!: string;
     public password!: string;
+
+    public toJSON() {
+        const values = { ...this.get() };
+        delete values.password;
+        return values;
+    }
 }
 
 User.init(

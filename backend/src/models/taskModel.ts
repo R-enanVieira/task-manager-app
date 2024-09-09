@@ -32,7 +32,7 @@ Task.init(
             allowNull: false,
             defaultValue: false,
         },
-        createdAt: {
+        created_at: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,

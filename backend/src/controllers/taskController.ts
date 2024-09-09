@@ -32,7 +32,7 @@ class TaskController {
         const userId = req.user.id;
         const {title, description} = req.body;
         try {
-            const task = await this.taskService.createTask(userId, title, description);
+            const task = await this.taskService.createTask(title, description, userId);
             res.status(201).json(task);
         } catch (error) {
             if (error instanceof Error) {

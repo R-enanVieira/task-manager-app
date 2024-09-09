@@ -1,6 +1,9 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export class AuthService {
     async register(name: string, email: string, password: string) {
@@ -25,8 +28,9 @@ export class AuthService {
             throw new Error('Invalid password');
         }
 
-        const token = jwt.sign({id: user.id, email: user.email}, 'secretKey', {expiresIn: '1h'});
-
+        const token = jwt.sign({id: user.id, email: user.email}, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '1h'});
+        console.log('token: ', token);
+        console.log('process.env.ACCESS_TOKEN_SECRET: ', process.env.ACCESS_TOKEN_SECRET);
         return token;
     }
     

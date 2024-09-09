@@ -1,6 +1,17 @@
 import app from './app';
 import { connectDB } from './config/db';
 
+declare global {
+namespace Express {
+    interface Request {
+    user?: {
+        id: number;
+        email: string;
+    };
+    }
+}
+}
+
 // Define port and start the server
 const PORT = process.env.PORT || 5000;
 

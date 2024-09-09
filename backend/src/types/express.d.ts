@@ -1,7 +1,12 @@
-import { JwtPayload } from 'jsonwebtoken';
+import { Request } from 'express';
 
-declare module 'express-serve-static-core' {
+declare global {
+  namespace Express {
     interface Request {
-        user?: JwtPayload;
+      user?: {
+        id: number;
+        email: string;
+      };
     }
+  }
 }
